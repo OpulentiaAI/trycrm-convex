@@ -1,6 +1,5 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
-import { writeMutation } from "./model/functions";
+import { authedQuery, writeMutation } from "./model/functions";
 
 // Sidebar personalization and the AI provider choice live on the workspace
 // row, so they reset with the demo like everything else.
@@ -9,9 +8,11 @@ const aiProviderValidator = v.union(
   v.literal("openai"),
   v.literal("anthropic"),
   v.literal("openrouter"),
+  v.literal("deepseek"),
+  v.literal("grok"),
 );
 
-export const sidebar = query({
+export const sidebar = authedQuery({
   args: {},
   returns: v.object({
     order: v.union(v.array(v.string()), v.null()),
@@ -52,7 +53,7 @@ export const setSidebarHidden = writeMutation({
   },
 });
 
-export const aiProvider = query({
+export const aiProvider = authedQuery({
   args: {},
   returns: aiProviderValidator,
   handler: async (ctx) => {
