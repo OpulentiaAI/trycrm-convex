@@ -23,6 +23,10 @@ What changed is everything underneath. No Vercel, no Postgres, no Prisma, no Red
 
 Try it at [convex.link/crmonconvex](https://convex.link/crmonconvex) (served from [good-dog-8.convex.site](https://good-dog-8.convex.site/)). The demo runs in demo mode: everything works in real time, content resets every 10 minutes with a Convex cron job, and auth and email are intentionally not configured. The site has a full setup and usage guide at `/docs`, written for people who have never deployed a backend.
 
+## The Paul Cushman dataset
+
+This fork ships purpose-built for Paul Cushman's Climate Week NYC 2026 planning. The raw research files live verbatim in `paul-data/paul-large-datafiles/` (31 files, checksummed), and `node scripts/build-paul-seed.mjs` regenerates typed data modules in `convex/paulData/` that the seed loads into nine `paul*` tables: 915 merged events (the official 838-row inventory joined with the 230-row screened list), 32 Luma verifications, the 480-name candidate universe, 26 corrected scored identities, 24 lane profiles, 79 entity↔event relationships, 12 audit findings, 24 intent mappings, and the companion documents. Four app pages — Events, Universe, Research, Dossier — make it browsable, and the 26 entities also land as real CRM companies so the rest of the product (enrichment, agents, record chat) works on them. The seed deliberately creates **no deals**: the research states these lists are source data, not a CRO pipeline.
+
 ## The stack
 
 | Layer            | Technology                                                                                                                                                                          |

@@ -1,0 +1,14 @@
+rank,canonical_name,entity_type,icp_fit,disposition,score_total,climate_relevance,icp_score,engagement,access,old_score,score_delta,warm_path,unknowns
+1,Voltera,company-energy-infrastructure,buyer,buyer_prospect,72,14,20,24,14,82,-10,featured: The Race to Build the Next Generation City: A Conversation with Voltera CEO Fran | sponsor (see evidence) | speaker-org,Thematic Session Partner from prior sponsors artifact (medium). Title+speaker evidence is high.
+3,Morningstar Sustainalytics,company-esg-data,partner,partner_prospect,63,24,15,12,12,64,-1,hosts: Morningstar Sustainalytics Sustainable Investing Forum,None material for host evidence.
+4,Polecat,company-climate-software,partner,partner_prospect,63,26,15,12,10,68,-5,sponsor (see evidence),Impact Partner tier from prior sponsors artifact (medium confidence); not an official host.
+5,STX Group,company-environmental-markets,buyer,buyer_prospect,62,16,20,14,12,67,-5,hosts: Unlocking Value Chain Decarbonization with Market-Based Instruments | hosts: What’s Next for Data Center Decarbonization? Navigating the Many Facets to Reach,None for host evidence.
+6,Carbon Mapper,nonprofit-data,partner,partner_prospect,61,22,15,12,12,68,-7,hosts: From Finding to Fixing: Accelerating Action on Methane Super-Emitters,None for host evidence (official host field is Carbon Mapper).
+9,Crux Climate,company-climate-fintech,partner,partner_prospect,57,26,15,0,16,77,-20,none confirmed in official host/title,"No verified Climate Week host, sponsor, or speaker. Prior 77 score was a false merge with Crux Alliance."
+10,UL Solutions,company-tic,partner,partner_prospect,57,16,15,14,12,78,-21,sponsor (see evidence),Main-program speaker claimed in the old reduce is not independently re-verified; not scored.
+11,BloombergNEF,research-division,partner,partner_prospect,55,20,15,6,14,65,-10,none confirmed in official host/title,"Speaker affiliation is from an event description, not the 70-speaker list."
+12,CoreWeave,company-ai-infrastructure,buyer,buyer_prospect,54,10,22,8,14,,,speaker-org,"Speaker from prior speakers artifact, medium confidence. icp “strong-buyer” in lane C is retained as buyer with high ICP points, not a guaranteed deal."
+13,Ember,nonprofit-data,partner,partner_prospect,53,20,15,8,10,62,-9,speaker-org,"Speaker from prior speakers artifact, medium confidence."
+14,S&P Global Sustainable1,company-esg-data,partner,partner_prospect,53,22,15,0,16,64,-11,none confirmed in official host/title,Prior “2 event texts” not visible in official host/title; engagement left at 0.
+15,Sunrun,company-residential-solar,buyer,buyer_prospect,50,14,20,4,12,63,-13,none confirmed in official host/title,Official host/title inventory does not contain “Sunrun”. Lane C presenting-sponsor claim left low-confidence; only 4 engagement points.
+17,Wood Mackenzie,company-research-data,partner,partner_prospect,49,18,15,8,8,63,-14,speaker-org,Speaker not visible in official host/title; medium confidence.

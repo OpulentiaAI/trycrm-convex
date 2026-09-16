@@ -7,7 +7,7 @@ import {
 } from "./_generated/server";
 import { dealsByStage } from "./aggregates";
 import { logEvent } from "./logs";
-import { seedAll } from "./model/seed";
+import { seedPaulWorkspace } from "./model/paulSeed";
 
 const TABLES = [
   "workspace",
@@ -26,6 +26,15 @@ const TABLES = [
   "chatThreads",
   "askThreads",
   "logEvents",
+  "paulEvents",
+  "paulVerifications",
+  "paulCandidates",
+  "paulProspects",
+  "paulLaneProfiles",
+  "paulRelationships",
+  "paulAuditFindings",
+  "paulIntentMappings",
+  "paulDocuments",
 ] as const;
 
 // Wipe everything and reseed. Runs on a cron every ten minutes in demo mode,
@@ -55,7 +64,10 @@ export const reset = internalMutation({
     // Stage namespaces are the six fixed stage strings, so this schedules a
     // handful of cleanup jobs, far below the 1000 per mutation limit.
     await dealsByStage.clearAll(ctx);
-    await seedAll(ctx, Date.now());
+    await seedPaulWorkspace(ctx, Date.now());
+    // The paul tables wipe above, then reload in scheduled chunks — a reset
+    // of 1500+ rows cannot run inside one mutation.
+    await ctx.scheduler.runAfter(0, internal.paul.loadAll, {});
     await logEvent(ctx, {
       kind: "C",
       fn: "demo:reset",
@@ -97,7 +109,8 @@ export const seedPublic = mutation({
   handler: async (ctx) => {
     const existing = await ctx.db.query("workspace").first();
     if (existing) return false;
-    await seedAll(ctx, Date.now());
+    await seedPaulWorkspace(ctx, Date.now());
+    await ctx.scheduler.runAfter(0, internal.paul.loadAll, {});
     return true;
   },
 });

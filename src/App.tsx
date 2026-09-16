@@ -9,7 +9,11 @@ import { ContactDetail } from "./app/ContactDetail";
 import { Contacts } from "./app/Contacts";
 import { Dashboard } from "./app/Dashboard";
 import { Deals } from "./app/Deals";
+import { Dossier } from "./app/Dossier";
+import { Events } from "./app/Events";
+import { Research } from "./app/Research";
 import { Settings } from "./app/Settings";
+import { Universe } from "./app/Universe";
 import { Compare } from "./pages/Compare";
 import { Docs } from "./pages/Docs";
 import { Landing } from "./pages/Landing";
@@ -27,6 +31,10 @@ export default function App() {
         <Route path="contacts" element={<Contacts />} />
         <Route path="contacts/:contactId" element={<ContactDetail />} />
         <Route path="deals" element={<Deals />} />
+        <Route path="events" element={<Events />} />
+        <Route path="universe" element={<Universe />} />
+        <Route path="research" element={<Research />} />
+        <Route path="dossier" element={<Dossier />} />
         <Route path="ask" element={<Ask />} />
         <Route path="activity" element={<Activity />} />
         <Route path="agents" element={<Agents />} />

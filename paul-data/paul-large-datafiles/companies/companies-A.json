@@ -1,0 +1,163 @@
+[
+  {
+    "name": "Watershed (Watershed Technology, Inc.)",
+    "category": "Carbon accounting / enterprise sustainability SaaS (climate data & AI)",
+    "website": "https://www.watershed.com",
+    "hq": "San Francisco, California, USA",
+    "founded": "2019",
+    "stage": "Private - Series C ($100M, Feb 2024, led by Greenoaks; $1.8B valuation; incl. Kleiner Perkins, Sequoia)",
+    "funding_summary": "~$239M total raised (Silicon Valley Investclub profile; PitchBook lists 18 investors)",
+    "headcount": "370 (LinkedIn, +13.2% YoY, Jun 2026); 400 (PitchBook); 550+ (company-affiliated profile)",
+    "headcount_source": "LinkedIn company page 2026-06-26; PitchBook profile",
+    "products": "Enterprise sustainability platform: carbon measurement/reporting, CSRD/CDP compliance, AI-powered product footprints, climate data APIs",
+    "icp_fit": "competitor",
+    "icp_notes": "Direct competitor for carbon accounting SaaS; potential partner for climate data standards",
+    "climate_week_involvement": "Mentioned in 4 official Climate Week NYC 2026 event texts (task2-description-mining.json)",
+    "sources": [
+      "https://watershed.com/blog/series-c",
+      "https://pitchbook.com/profiles/company/439873-75",
+      "https://linkedin.com/company/watershedclimate",
+      "https://www.bloomberg.com/news/articles/2024-02-01/watershed-climate-data-service-secures-100-million-funding-round"
+    ]
+  },
+  {
+    "name": "Polecat (Polecat Intelligence Ltd.)",
+    "category": "Climate risk intelligence SaaS (risk & reputation analytics)",
+    "website": "https://www.polecat.com",
+    "hq": "London, UK (Bristol-origin; presence UK/US/NL/ZA/PL)",
+    "founded": "2007",
+    "stage": "Private - Series A (~$4.1-5.3M total raised; last round ~8 yrs ago)",
+    "funding_summary": "~$4.13M (Tracxn 2026); $5.29M (CB Insights); LinkedIn lists $4.2M",
+    "headcount": "24 (LinkedIn 2026, +7.5% YoY); 30 (Latka 2024)",
+    "headcount_source": "LinkedIn company page; getlatka.com",
+    "products": "Risk intelligence platform: ESG/climate/supply-chain risk monitoring from online data",
+    "icp_fit": "partner",
+    "icp_notes": "Small team; partner for risk data rather than a large-budget buyer",
+    "climate_week_involvement": "Impact Partner sponsor of Climate Week NYC 2026 (cw-sponsors-partners-raw.json)",
+    "sources": [
+      "https://linkedin.com/company/polecat",
+      "https://www.cbinsights.com/company/polecat-1",
+      "https://tracxn.com/d/companies/polecat/",
+      "https://www.polecat.com/about"
+    ]
+  },
+  {
+    "name": "Datamaran",
+    "category": "ESG policy/risk analysis SaaS (AI-driven)",
+    "website": "https://www.datamaran.com",
+    "hq": "London, UK (presence US, NL, ES)",
+    "founded": "2014",
+    "stage": "Private - Series C ($32.6M growth financing from Morgan Stanley Expansion Capital, Sep 2024)",
+    "funding_summary": "Series C $33M announced 2024-09-19 (Business Wire); ARR more than doubled since Series B",
+    "headcount": "107 (LinkedIn, -17.2% YoY, Jun 2026); 124 (PitchBook); 133 (Latka 2024)",
+    "headcount_source": "LinkedIn company page 2026-06-28; PitchBook",
+    "products": "AI platform monitoring external ESG risks, regulations, and policy for board-level reporting",
+    "icp_fit": "competitor",
+    "icp_notes": "Adjacent competitor (ESG policy analytics); possible integration partner",
+    "climate_week_involvement": "Mentioned in 1 official Climate Week NYC 2026 event text",
+    "sources": [
+      "https://www.businesswire.com/news/home/20240917234304/en/",
+      "https://pitchbook.com/profiles/company/136970-11",
+      "https://linkedin.com/company/datamaran"
+    ]
+  },
+  {
+    "name": "UL Solutions Inc.",
+    "category": "Testing/inspection/certification (TIC) + sustainability software (ULTRUS)",
+    "website": "https://www.ul.com",
+    "hq": "Northbrook, Illinois, USA",
+    "founded": "1894",
+    "stage": "Public - NYSE: ULS (IPO April 2024); strong FY2025 results, 2026 growth outlook, raised dividend",
+    "funding_summary": "Public company; Q4/FY2025 10-K filed 2026-02-19",
+    "headcount": "14,635 (AltIndex via LinkedIn, Aug 2026, +2.8% QoQ); ~8,400 core on LinkedIn page",
+    "headcount_source": "AltIndex ULS employee trends 2026-08-15; LinkedIn company page",
+    "products": "Safety science, certification, and compliance software incl. sustainability/ESG data services",
+    "icp_fit": "partner",
+    "icp_notes": "Large enterprise; partner for validation/certification and distribution; also a buyer of climate software internally",
+    "climate_week_involvement": "Silver Partner sponsor of Climate Week NYC 2026; Guidehouse Climate Week Roundtable is a separate event host",
+    "sources": [
+      "https://altindex.com/ticker/uls/employees-linkedin",
+      "https://last10k.com/sec-filings/uls/0001901440-26-000005.htm",
+      "https://www.roic.ai/quote/ULS/transcripts/2026-year/2-quarter"
+    ]
+  },
+  {
+    "name": "Salesforce, Inc.",
+    "category": "Enterprise SaaS platform incl. Net Zero Cloud sustainability suite",
+    "website": "https://www.salesforce.com/sustainability/",
+    "hq": "San Francisco, California, USA",
+    "founded": "1999",
+    "stage": "Public - NYSE: CRM",
+    "funding_summary": "Public mega-cap SaaS",
+    "headcount": "~83,823 (FY2026 headcount tracker; Salesforce official FY25 metrics schedules)",
+    "headcount_source": "highperformr.ai headcount (FY26); Salesforce FY25 environmental/employee metrics PDF",
+    "products": "Net Zero Cloud (carbon accounting) with Agentforce AI agents + Data Cloud integration (launched June 2025)",
+    "icp_fit": "competitor",
+    "icp_notes": "Platform competitor in carbon accounting; potential ecosystem/channel partner",
+    "climate_week_involvement": "Silver Partner sponsor of Climate Week NYC 2026; SVP of Impact Sunya Norman is a main-program speaker",
+    "sources": [
+      "https://www.salesforce.com/news/stories/agentforce-for-net-zero-cloud-announcement/",
+      "https://www.highperformr.ai/headcount/salesforce"
+    ]
+  },
+  {
+    "name": "Morningstar Sustainalytics",
+    "category": "ESG ratings & data (note: acquired by Morningstar in 2020, NOT Moody's)",
+    "website": "https://www.sustainalytics.com",
+    "hq": "Amsterdam, Netherlands (US/UK presence)",
+    "founded": "1992",
+    "stage": "Private subsidiary of Morningstar, Inc. (NASDAQ: MORN)",
+    "funding_summary": "Acquired by Morningstar (2020); no independent rounds",
+    "headcount": "701 (LinkedIn, -15.4% YoY, Jun 2026); revenue ~EUR 25.9M",
+    "headcount_source": "LinkedIn company page 2026-06-28",
+    "products": "ESG Risk Ratings, corporate ESG solutions, financial-materiality data for investors and companies",
+    "icp_fit": "partner",
+    "icp_notes": "Ratings/data partner for ESG scoring integrations; small internal buying budget (headcount declining)",
+    "climate_week_involvement": "Sustainalytics mentioned in 2 official Climate Week NYC 2026 event texts",
+    "sources": [
+      "https://linkedin.com/company/sustainalytics",
+      "https://www.sustainalytics.com/esg-data",
+      "https://marketintelligencetools.com/rankings/esg-data-providers/"
+    ]
+  },
+  {
+    "name": "S&P Global Sustainable1",
+    "category": "ESG & energy-transition data/analytics division of S&P Global",
+    "website": "https://www.spglobal.com/sustainable1/",
+    "hq": "New York, NY, USA",
+    "founded": "2021 (division; built on Trucost 2016, CSA 1999, The Climate Service 2022 acquisitions)",
+    "stage": "Public parent - NYSE: SPGI (>5,000 employees; >$10B revenue)",
+    "funding_summary": "Division of public S&P Global",
+    "headcount": "45,691 LinkedIn followers on Sustainable1 showcase; S&P Global >40,000 total employees",
+    "headcount_source": "Verdantix Atlas vendor profile; LinkedIn showcase page",
+    "products": "ESG scores, Trucost environmental data, physical climate risk (The Climate Service), CSA/DJSI",
+    "icp_fit": "partner",
+    "icp_notes": "Data licensing partner; also a buyer for internal tooling; NYC HQ gives high accessibility",
+    "climate_week_involvement": "S&P Global mentioned in 2 official Climate Week NYC 2026 event texts",
+    "sources": [
+      "https://www.spglobal.com/sustainable1/en",
+      "https://esgsource.com/directory/sp-global-esg",
+      "https://atlas.verdantix.com/vendors/sandp-global"
+    ]
+  },
+  {
+    "name": "Apolitical (Apolitical Group Limited)",
+    "category": "Government learning network SaaS (public-sector skills platform, climate & AI focus)",
+    "website": "https://apolitical.com",
+    "hq": "London, UK (workforce across 8 countries incl. US, ES, BE)",
+    "founded": "2015",
+    "stage": "Private - grant/VC (~$13.78M total raised; last $2.22M ~2 yrs ago; CB Insights stage Grant III)",
+    "funding_summary": "~$13.78M total (CB Insights); connects 500,000+ public servants",
+    "headcount": "95 (LinkedIn, 2026); revenue ~$4.1M",
+    "headcount_source": "LinkedIn company page 2026; CB Insights",
+    "products": "Social learning network for government: communities, courses, events; climate and AI upskilling for public servants",
+    "icp_fit": "partner",
+    "icp_notes": "Distribution partner into government audiences; modest direct buying power",
+    "climate_week_involvement": "Thematic Session Partner sponsor of Climate Week NYC 2026 (cw-sponsors-partners-raw.json)",
+    "sources": [
+      "https://linkedin.com/company/apolitical",
+      "https://www.cbinsights.com/company/apolitical",
+      "https://leadiq.com/c/apolitical/5a1dc3072300005200c48547"
+    ]
+  }
+]

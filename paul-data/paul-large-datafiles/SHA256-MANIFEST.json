@@ -1,0 +1,122 @@
+{
+  "README.md": {
+    "bytes": 2317,
+    "sha256": "f2151b0f671a434c4c5c2c1b176c2df5059cb1409b01b7a467bff70d0718a89c"
+  },
+  "companies/HISTORICAL-UNCORRECTED-prospect-ranking.md": {
+    "bytes": 6668,
+    "sha256": "045093adfd0defd859ad979ff24b02205c38115f4a48b69fdae242c2ebd4a43f"
+  },
+  "companies/candidate-universe-status.csv": {
+    "bytes": 56754,
+    "sha256": "5e9817ce671237222484780569fe23911c0819c60f526289010defccd706bed4"
+  },
+  "companies/companies-A.json": {
+    "bytes": 9524,
+    "sha256": "3c4d823cdd8829d2d3957a60179c17ad5f127a0303a75ef25c9fd6d2d65ea7df"
+  },
+  "companies/companies-B.json": {
+    "bytes": 26046,
+    "sha256": "c98f76853becf888c7773b174050b019aa4f7521d95f92ae41b2fb60c3fe1824"
+  },
+  "companies/companies-C.json": {
+    "bytes": 39848,
+    "sha256": "640e0e095d022a13da8f3ce82b880fec1c4007c57cb14f10d6e73814f0fb275d"
+  },
+  "companies/company-event-relationships.csv": {
+    "bytes": 26905,
+    "sha256": "cf8e63a778f69f97a8b44989a942573f0505a16dde3476e1d447a7a481ac26b7"
+  },
+  "companies/company-research.csv": {
+    "bytes": 16643,
+    "sha256": "88822b39d5b5766cc27ff64fc71d059f7d885a7731dbdaf8d17fdd40a0ed11e0"
+  },
+  "companies/company-research.json": {
+    "bytes": 33331,
+    "sha256": "3d90b22a307cde722c154374001cdedc17c9a0e20967084f161c26bded2596af"
+  },
+  "companies/entity-resolution-audit.csv": {
+    "bytes": 4999,
+    "sha256": "f23c045dfcf4f35828a208fccd28dc62817e882c4e986113e0b3cd5b0426758b"
+  },
+  "companies/prior-candidate-names-480.txt": {
+    "bytes": 11194,
+    "sha256": "2c18fef2319f799f72d4d1a2059db75a8fefa3dba595895dd36fc706ffbcb003"
+  },
+  "companies/prospect-ranking.csv": {
+    "bytes": 6137,
+    "sha256": "f44dd8d09413e71366409a884058f6963ed1e51c99220ed86e157ec35ae5fa80"
+  },
+  "companies/prospects-only.csv": {
+    "bytes": 2979,
+    "sha256": "f59d2938c6a4ffeba093ecd349eb864d6861c9de52a7ec469071ff220aee6311"
+  },
+  "context/ALL-ASKS-AND-FULL-CONTEXT.md": {
+    "bytes": 4190,
+    "sha256": "8fdd728511ce1f32363725d7dc97cdf806cae92963044d35aa30466fbda14b5e"
+  },
+  "context/HOW-TO-FIND-PAUL-IN-CONVEX.md": {
+    "bytes": 3746,
+    "sha256": "e68b4a872a8f54b9eda91536443861710b66599ab9897327dc9566fca330d9c7"
+  },
+  "context/asks-submitted/CONTINUATION-BRIEF-company-research.md": {
+    "bytes": 6741,
+    "sha256": "9f27f223d2b68986617bfad0d2de6e484c2b50670dbf9a7c18c8c063a436d7fa"
+  },
+  "context/asks-submitted/fable51-medium-revision-brief.md": {
+    "bytes": 2652,
+    "sha256": "50e1634d2d4a33fa6e27d71ee2e9172d52d11dd8622e9fce4ab2347c0bdb93aa"
+  },
+  "context/asks-submitted/gemini38-intent-vs-outputs-brief.md": {
+    "bytes": 5293,
+    "sha256": "308cd2c0ea7b2d4ca5f547ce737c216039134fc0bdc9698c1f0ec047f0d3df86"
+  },
+  "context/asks-submitted/gpt6-astra-medium-presentation-brief.md": {
+    "bytes": 2170,
+    "sha256": "6f108ffe943ce1e986a30cb6c406fa3c03fb20ca1291fcbed094e0efec564c1b"
+  },
+  "context/paul-thread-and-run-receipts.json": {
+    "bytes": 1711,
+    "sha256": "c7598c19efbda1cdfdcaed25cc3d3156849bce2206dd5d5e0daa26b76eaa0c71"
+  },
+  "events/candidate-pending-verification.csv": {
+    "bytes": 107944,
+    "sha256": "d67def5cedbf698f86581c7902e291681c5f633291ce39919bde405f01e12d0e"
+  },
+  "events/excluded-from-qualified.csv": {
+    "bytes": 18169,
+    "sha256": "5eca8de5158a41cfcea836eb4b734394b6eb571ffc0d041eba02844d1ab5203f"
+  },
+  "events/expanded-longlist-all-screened.csv": {
+    "bytes": 261609,
+    "sha256": "abc1e013b165ebc5debfce444f603c387a9af6fd1b9dc37109d51c9325168a0e"
+  },
+  "events/official838.csv": {
+    "bytes": 541731,
+    "sha256": "b6b6c618b164a0310b55e9c2f5b404b5bd3b2bf23611eba605269f3646ffadf9"
+  },
+  "events/primary-source-verification.json": {
+    "bytes": 73546,
+    "sha256": "940723e23b083ae330681e4da29001be14608f331dd41dce1a4ec703eb3b23b9"
+  },
+  "events/qualified-climate-tech-networking-longlist.csv": {
+    "bytes": 136344,
+    "sha256": "4dfa2a2c833f83d2c295513d1b543b089d368d2680e15e63f9afd827625dd86c"
+  },
+  "events/ranked-top10.csv": {
+    "bytes": 14126,
+    "sha256": "4b389b32f7f866e80e7ded79bddb9479d59286f4cda87f71cef164389bde4de2"
+  },
+  "events/ranked-top20.csv": {
+    "bytes": 27271,
+    "sha256": "e23cb39f44a036a4e014ff822a3d3396d95f2e14557a3dc45c8364947667b94d"
+  },
+  "events/verification-summary.json": {
+    "bytes": 2022,
+    "sha256": "554b97dc25ab8fd2673a5d1ee39b91cee22d4cee454f8683092d441ee62f71c1"
+  },
+  "intent/outputs-vs-intent.csv": {
+    "bytes": 9394,
+    "sha256": "8a5fa9ed309bfd181eef732fb6f5ebe265d659eb7231409ed26ae3e196c4ed9a"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-09-10T22:13:01.474475+00:00",
+  "counts": {
+    "screened": 230,
+    "qualified": 99,
+    "pending": 114,
+    "excluded": 17,
+    "top20": 20,
+    "top10": 10
+  },
+  "qualified_evidence": {
+    "ecosystem-luma": 31,
+    "official-838": 68
+  },
+  "qualified_access": {
+    "Open applications; host approval required": 20,
+    "Open registration observed; no blanket approval flag": 4,
+    "Waitlist/sold out/closed": 6,
+    "Registration availability unknown": 34,
+    "Private listing; admission unverified": 34,
+    "Open, ticket-specific approval conditions": 1
+  },
+  "qualified_date_scope": {
+    "Adjacent Sep 16\u201319 or Sep 28\u201330": 4,
+    "Core Sep 20\u201327": 95
+  },
+  "primary_luma_pages_rechecked": 32,
+  "qualified_unknown_dates": 0,
+  "ranking_subset_assertions": true,
+  "unique_screened_ids": true,
+  "source_run": "ks7b6pvy5e81vjebrfhjgwhhm58e4a3y",
+  "source_delivery_tool_row": "g57qkj3hs1p0aagyr5xy3c016n8e4e18",
+  "files": {
+    "qualified-climate-tech-networking-longlist.csv": "4dfa2a2c833f83d2c295513d1b543b089d368d2680e15e63f9afd827625dd86c",
+    "candidate-pending-verification.csv": "d67def5cedbf698f86581c7902e291681c5f633291ce39919bde405f01e12d0e",
+    "excluded-from-qualified.csv": "5eca8de5158a41cfcea836eb4b734394b6eb571ffc0d041eba02844d1ab5203f",
+    "expanded-longlist-all-screened.csv": "abc1e013b165ebc5debfce444f603c387a9af6fd1b9dc37109d51c9325168a0e",
+    "ranked-top20.csv": "e23cb39f44a036a4e014ff822a3d3396d95f2e14557a3dc45c8364947667b94d",
+    "ranked-top10.csv": "4b389b32f7f866e80e7ded79bddb9479d59286f4cda87f71cef164389bde4de2",
+    "recommendations-and-itinerary.md": "ba47936bf411fc2206cb8e6197279a0e08f576368e1b9fb905ec5228c67abc10",
+    "coverage-and-change-ledger.md": "e1bb94b74d70def9abcab57b28a33ddb2e9a2315962cd9f29a2c0599efd9df2f",
+    "TASK-RECAP.md": "5338be162c7307e3c328fe4bca01e4c159db4e285e65a3a1cade15039082b167",
+    "primary-source-verification.json": "940723e23b083ae330681e4da29001be14608f331dd41dce1a4ec703eb3b23b9"
+  }
+}

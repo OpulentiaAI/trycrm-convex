@@ -16,18 +16,22 @@ Brief description of what each file does. Updated 2026-08-09 19:55 UTC.
 | `task.md` | Work tracking for this port |
 | `files.md` | This file |
 | `eslint.config.js` | ESLint 9 flat config with the Convex plugin and type aware typescript-eslint |
+| `paul-data/paul-large-datafiles/` | Paul Cushman's Climate Week NYC 2026 dataset, 31 files verbatim from the source zip: the official 838-event inventory, the 230-row screened list, the 480-name candidate universe, scored companies, lane profiles, relationships, audit findings, intent mappings, verifications, context docs, and the SHA256 manifest |
+| `scripts/build-paul-seed.mjs` | Deterministic generator: parses the paul-data CSV/JSON files (with an RFC-4180 CSV reader), merges the screened list onto official events by slug, and emits typed data modules to `convex/paulData/` |
 
 ## convex/ (backend)
 
 | File | Description |
 | --- | --- |
 | `convex.config.ts` | Installs all components; declares the required `CONTEXT_DEV_API_KEY`, `FIRECRAWL_API_KEY`, and `EXA_API_KEY` env vars |
-| `schema.ts` | All tables: workspace (with email/AI provider, sidebar prefs, and Slack settings), users, companies, contacts, deals, activities, custom fields, agent tasks, agent definitions and versions, runs, facts, chat threads, ask threads, log events, slackIdentities |
+| `schema.ts` | All tables: workspace (with email/AI provider, sidebar prefs, and Slack settings), users, companies, contacts, deals, activities, custom fields, agent tasks, agent definitions and versions, runs, facts, chat threads, ask threads, log events, slackIdentities, plus the nine paul* tables holding the Climate Week dataset (events, verifications, candidates, prospects, lane profiles, relationships, audit findings, intent mappings, documents) |
 | `http.ts` | App-owned root routing; AgentMail webhook at /agentmail/webhook; signed Slack bot routes under /webhooks/slack/; static hosting registered as the catch-all |
 | `staticHosting.ts` | Exposes the deployment query for live reload on deploy |
 | `crons.ts` | Demo reset every 10 minutes, agent queue tick every minute |
 | `aggregates.ts` | Deal rollups by stage (namespaces must stay a small fixed set), with insert/replace/delete tracking helpers |
-| `demo.ts` | Reset (a no-op when demo mode is off), first-boot seed, demo info for the banner, manual reset request, and `disableDemoMode` for forks |
+| `demo.ts` | Reset (a no-op when demo mode is off), first-boot seed, demo info for the banner, manual reset request, and `disableDemoMode` for forks; seeds Paul's workspace and schedules the chunked paul* table load |
+| `paul.ts` | The paul* table surface: `loadAll`/`loadChunk` internal loaders that wipe and reload in scheduled batches, idempotent `seed`/`seedWorkspace` backstops, and every read (events with screening/top-N/search, stats, verifications, candidates, prospects, lane profiles, relationships, audit findings, intent mappings, documents) |
+| `paulData/` | Generated typed data modules (915 events split across four files, 480 candidates, 26 prospects, 24 lane profiles, 79 relationships, 32 verifications, 12 audit findings, 24 intent mappings, 12 documents, and the research rubric); regenerate with `node scripts/build-paul-seed.mjs`, do not edit by hand |
 | `companies.ts` | Company list, detail, create (queues enrichment), update, delete, re-enrich, names picker |
 | `contacts.ts` | Contact list, detail with facts, create, update, delete |
 | `deals.ts` | Board grouped by stage, create, update, stage change with activity log, delete |
@@ -55,15 +59,15 @@ Brief description of what each file does. Updated 2026-08-09 19:55 UTC.
 | `model/functions.ts` | `writeMutation` and `authedQuery` custom builders from convex-helpers; run the access check before every write and every gated read |
 | `model/deals.ts` | Shared deal stage-change write used by the UI mutation and the Slack bot: patch, aggregates, timeline, log, Slack notification |
 | `model/cascade.ts` | Manual cascading deletes for companies, contacts, deals |
-| `model/seed.ts` | Demo seed content: workspace, team, companies, contacts, deals, activities, agents |
+| `model/paulSeed.ts` | Seed content: Paul's workspace (demoMode), Paul Cushman owner + Jeremy Alston member, the 26 scored entities as companies with research custom fields (score, disposition, ICP fit, warm path), evidence-ledger facts, a note per entity, and two real agent tasks. No deals — the source data is not a pipeline |
 
 ## src/ (frontend)
 
 | File | Description |
 | --- | --- |
 | `main.tsx` | Convex client and router setup; derives the backend URL when served from convex.site |
-| `App.tsx` | Routes: landing, compare, docs, and the /app CRM shell (dashboard, companies, contacts, deals, ask, activity, agents, settings) |
-| `index.css` | Theme tokens for Composio dark (default) and Minimax light (`html.light`) |
+| `App.tsx` | Routes: landing, compare, docs, and the /app CRM shell (dashboard, companies, contacts, deals, events, universe, research, dossier, ask, activity, agents, settings) |
+| `index.css` | Theme tokens for the Ramp Ryu palette in dark (default) and light (`html.light`), Lausanne via Ramp's fonts CDN, Ryu weights (300 body, 400 headings) and square radius |
 | `vite-env.d.ts` | Vite client types |
 | `lib/format.ts` | Money, relative time, short dates, stage labels, initials |
 | `lib/columns.ts` | Column registry for the three entity tables: built-in column definitions, custom field column keys, merge of saved preferences with active fields |
@@ -82,6 +86,10 @@ Brief description of what each file does. Updated 2026-08-09 19:55 UTC.
 | `app/Contacts.tsx` | Column-driven contact table: search, company filter, header menus, custom field columns with inline edit, inline add row, pagination |
 | `app/ContactDetail.tsx` | Facts with evidence bands, recheck scheduling, notes-and-tasks timeline |
 | `app/Deals.tsx` | Drag-and-drop board plus a column-driven list view with custom field columns, stage moves, and a create form prefilled from workspace defaults |
+| `app/Events.tsx` | Climate Week event browser: screening/top-N filter tabs, title search, stat cards, expandable rows with screening evidence, entity links, and Luma verifications |
+| `app/Universe.tsx` | The 480-name candidate universe with status filter and stats (official hosts, unresolved names, corrected profiles, generic tokens) |
+| `app/Research.tsx` | Research tabs: the 26 scored identities with score/dimension breakdown and event links, the 24 lane profiles grouped by lane, audit findings, and the artifact intent map |
+| `app/Dossier.tsx` | Scoring rubric and verification summary plus a document library: every companion doc verbatim with sha256, read inline |
 | `app/Ask.tsx` | Claude-style workspace chat: streamed replies, thread sub-sidebar with archive and delete, slash commands, time-aware greeting, provider notes |
 | `app/Activity.tsx` | Live function-outcome log with pause, select one or all, and clear, in the shape of the Convex dashboard |
 | `app/Agents.tsx` | Agent builder: describe a process, manage drafts, deploy, pause |
@@ -105,4 +113,4 @@ Brief description of what each file does. Updated 2026-08-09 19:55 UTC.
 
 ## docs/
 
-Upstream documentation and the port instructions in `docs/try-crm-instructions/`. PRDs: `prds/convex-port.md` (the port), `prds/components-docs-theme.md` (web research components, docs page, and themes), `prds/ask-tables-logs-polish.md` (Ask chat, activity log, Command-K, table upgrades), `prds/compose-email-settings-docs.md` (compose email, Settings sub-sidebar, docs sidebar), `prds/disable-demo-reset-for-forks.md` (fork-safe demo reset), `prds/mobile-pass.md` (mobile responsiveness pass), `prds/slack-integration.md` (Slack notifications and the /crm bot), `prds/task-due-date-calendar.md` (calendar due dates for tasks), `prds/landing-what-it-does-bento.md` (landing bento with mock UI blocks and BYOK), `prds/adopt-community-prs.md` (community PR adoption, TextLink, component version pass), `prds/demo-reset-scheduled-function-limit.md` (demo reset scheduling limit fix, dealsByOwner removal), `prds/security-review-2026-08.md` (sec-check audit of the backend: reads unauthenticated, write path sound, npm audit), and `prds/deepseek-grok-providers.md` (DeepSeek and Grok provider options, PR #3 review and rejection).
+Upstream documentation and the port instructions in `docs/try-crm-instructions/`. PRDs: `prds/convex-port.md` (the port), `prds/components-docs-theme.md` (web research components, docs page, and themes), `prds/ask-tables-logs-polish.md` (Ask chat, activity log, Command-K, table upgrades), `prds/compose-email-settings-docs.md` (compose email, Settings sub-sidebar, docs sidebar), `prds/disable-demo-reset-for-forks.md` (fork-safe demo reset), `prds/mobile-pass.md` (mobile responsiveness pass), `prds/slack-integration.md` (Slack notifications and the /crm bot), `prds/task-due-date-calendar.md` (calendar due dates for tasks), `prds/landing-what-it-does-bento.md` (landing bento with mock UI blocks and BYOK), `prds/adopt-community-prs.md` (community PR adoption, TextLink, component version pass), `prds/demo-reset-scheduled-function-limit.md` (demo reset scheduling limit fix, dealsByOwner removal), `prds/security-review-2026-08.md` (sec-check audit of the backend: reads unauthenticated, write path sound, npm audit), and `prds/deepseek-grok-providers.md` (DeepSeek and Grok provider options, PR #3 review and rejection), and `prds/paul-data-port.md` (Paul Cushman Climate Week NYC 2026 data port: merge strategy, paul* schema, seed, pages, Ryu theme).
