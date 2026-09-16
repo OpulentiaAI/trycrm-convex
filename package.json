@@ -35,6 +35,7 @@
     "@convex-dev/workpool": "latest",
     "@exalabs/convex-exa": "^0.1.1",
     "@firecrawl/firecrawl-convex": "^0.1.1",
+    "@vibeflowai/convex-mcp": "^0.1.4",
     "ai": "^6.0.35",
     "convex": "^1.31.0",
     "convex-helpers": "latest",

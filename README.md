@@ -106,6 +106,7 @@ Every outside key is optional in practice. The app degrades honestly: features t
 | `APP_URL`                                  | Overrides the base URL in Slack deep links, for custom domains                                                                               | Links use the `.convex.site` URL                                                       |
 | `FIRECRAWL_WEBHOOK_SECRET`                 | Verifies Firecrawl crawl webhooks                                                                                                            | Optional; only needed for webhook-mode crawls                                          |
 | `AGENTMAIL_WEBHOOK_SECRET`                 | Verifies inbound AgentMail webhooks                                                                                                          | Optional; unverified deliveries are rejected                                           |
+| `MCP_AUTH_TOKEN`                           | Bearer auth for the embedded MCP endpoint (`POST /mcp`)                                                                                       | Endpoint is open — intended for local builds                                           |
 
 Set any of them with:
 
@@ -116,6 +117,17 @@ npx convex env set OPENAI_API_KEY sk-...
 None of the five AI keys ship by default. A fresh fork has no model keys at all; the Ask page and record chat answer with the exact key they need instead of erroring. Pick which provider the chat uses in Settings. OpenAI is the default.
 
 Demo mode is a flag on the workspace row, set by the seed. While it is on, writes are open, sign-in is disabled, and the reset cron wipes and reseeds all tables every 10 minutes. The banner in the app counts down to the next reset. Forking this for real use? Turn it off first: see [Turning off the demo reset](#turning-off-the-demo-reset).
+
+## Embedded MCP endpoint
+
+The app ships an MCP server on the deployment itself — `POST https://YOUR-DEPLOYMENT.convex.site/mcp` (the local dev backend's `.site` URL likewise). Any MCP client pointed at that URL can discover and call the app's functions as tools:
+
+- **Pull** — companies/contacts/deals/activities reads, global search, dashboard summary, and the full `paul.*` surface (915 events, 480 candidates, 26 prospects, lane profiles, relationships, audit findings, intent map, document library, research meta).
+- **Add/update** — `companies.create|update`, `contacts.create|update`, `deals.create|update|changeStage`, `activities.create|completeTask`, `fields.setValue` — the same `writeMutation` paths the UI uses. Destructive `remove` tools are intentionally not exposed.
+- **Analyze** — `paul.eventStats`, `paul.candidateStats`, `dashboard.summary`, plus a `paul.briefing` prompt that briefs the agent on dataset semantics (qualification ≠ admission; source data, not a pipeline).
+- **Control** — `demo.info`, `demo.requestReset`, `paul.seed`, `paul.seedWorkspace` (idempotent seeds; reset is annotated destructive).
+
+Defined in `convex/mcp.ts` via `@vibeflowai/convex-mcp`, mounted in `convex/http.ts`. Open by default for whoever runs the app locally; `npx convex env set MCP_AUTH_TOKEN <token>` requires `Authorization: Bearer <token>`.
 
 ## Email: two providers
 

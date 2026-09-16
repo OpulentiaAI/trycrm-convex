@@ -25,7 +25,8 @@ Brief description of what each file does. Updated 2026-08-09 19:55 UTC.
 | --- | --- |
 | `convex.config.ts` | Installs all components; declares the required `CONTEXT_DEV_API_KEY`, `FIRECRAWL_API_KEY`, and `EXA_API_KEY` env vars |
 | `schema.ts` | All tables: workspace (with email/AI provider, sidebar prefs, and Slack settings), users, companies, contacts, deals, activities, custom fields, agent tasks, agent definitions and versions, runs, facts, chat threads, ask threads, log events, slackIdentities, plus the nine paul* tables holding the Climate Week dataset (events, verifications, candidates, prospects, lane profiles, relationships, audit findings, intent mappings, documents) |
-| `http.ts` | App-owned root routing; AgentMail webhook at /agentmail/webhook; signed Slack bot routes under /webhooks/slack/; static hosting registered as the catch-all |
+| `http.ts` | App-owned root routing; AgentMail webhook at /agentmail/webhook; signed Slack bot routes under /webhooks/slack/; MCP endpoint at POST /mcp; static hosting registered as the catch-all |
+| `mcp.ts` | Embedded MCP server (`@vibeflowai/convex-mcp`): exposes the app's public functions as MCP tools — paul.* reads + idempotent seeds, CRM create/update writes (no removes), stats/analysis queries, demo controls — plus research-meta/documents resources and a dataset-briefing prompt. Open by default; `MCP_AUTH_TOKEN` enables Bearer auth |
 | `staticHosting.ts` | Exposes the deployment query for live reload on deploy |
 | `crons.ts` | Demo reset every 10 minutes, agent queue tick every minute |
 | `aggregates.ts` | Deal rollups by stage (namespaces must stay a small fixed set), with insert/replace/delete tracking helpers |

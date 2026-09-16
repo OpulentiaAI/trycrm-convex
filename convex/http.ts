@@ -3,6 +3,7 @@ import { registerStaticRoutes } from "@convex-dev/static-hosting";
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { components } from "./_generated/api";
+import { MCP_AUTH, mcp } from "./mcp";
 import {
   commandsRoute,
   eventsRoute,
@@ -47,6 +48,11 @@ http.route({
   method: "POST",
   handler: eventsRoute,
 });
+
+// Embedded MCP endpoint — POST /mcp serves the app's functions as MCP tools
+// (see convex/mcp.ts). Open on local builds; set MCP_AUTH_TOKEN to require
+// Bearer auth.
+mcp.addHttpRoutes(http, { auth: MCP_AUTH });
 
 // The built Vite app is served straight from Convex storage. Exact app routes
 // registered above this call always win; everything else falls through to the
