@@ -288,7 +288,9 @@ function EventDetail({ event }: { event: Doc<"paulEvents"> }) {
         ) : null}
       </Field>
       <Field label="Luma verification">
-        {verifications === undefined ? (
+        {event.recordId === undefined ? (
+          <span className="text-neutral-500">No re-verification on file.</span>
+        ) : verifications === undefined ? (
           <span className="text-neutral-500">Loading…</span>
         ) : verifications.length === 0 ? (
           <span className="text-neutral-500">No re-verification on file.</span>

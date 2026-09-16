@@ -21,6 +21,21 @@ import { verifications } from "./paulData/verifications";
 
 const ALL_EVENTS = [...events0, ...events1, ...events2, ...events3];
 
+// Convex field names must be non-control ASCII; source labels like
+// "Adjacent Sep 16–19" carry en dashes, so normalize keys at the boundary.
+const asciiKeys = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(asciiKeys);
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([k, val]) => [
+        k.replace(/[^\x20-\x7E]/g, "-"),
+        asciiKeys(val),
+      ]),
+    );
+  }
+  return value;
+};
+
 const PAUL_TABLES = [
   "paulEvents",
   "paulVerifications",
@@ -196,7 +211,7 @@ export const seedWorkspace = mutation({
 export const researchMeta = authedQuery({
   args: {},
   returns: v.any(),
-  handler: async () => meta,
+  handler: async () => asciiKeys(meta),
 });
 
 export const eventStats = authedQuery({
@@ -222,13 +237,17 @@ export const eventStats = authedQuery({
     const top20 = (
       await ctx.db
         .query("paulEvents")
-        .withIndex("by_priorityRank", (q) => q.lte("priorityRank", 20))
+        .withIndex("by_priorityRank", (q) =>
+          q.gte("priorityRank", 0).lte("priorityRank", 20),
+        )
         .collect()
     ).length;
     const top10 = (
       await ctx.db
         .query("paulEvents")
-        .withIndex("by_priorityRank", (q) => q.lte("priorityRank", 10))
+        .withIndex("by_priorityRank", (q) =>
+          q.gte("priorityRank", 0).lte("priorityRank", 10),
+        )
         .collect()
     ).length;
     const lumaOnly = (
@@ -274,7 +293,7 @@ export const events = authedQuery({
       return await ctx.db
         .query("paulEvents")
         .withIndex("by_priorityRank", (q) =>
-          q.lte("priorityRank", args.topN!),
+          q.gte("priorityRank", 0).lte("priorityRank", args.topN!),
         )
         .paginate(args.paginationOpts);
     }
