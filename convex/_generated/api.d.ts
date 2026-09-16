@@ -27,6 +27,7 @@ import type * as enrichment from "../enrichment.js";
 import type * as fields from "../fields.js";
 import type * as http from "../http.js";
 import type * as logs from "../logs.js";
+import type * as mcp from "../mcp.js";
 import type * as model_access from "../model/access.js";
 import type * as model_activities from "../model/activities.js";
 import type * as model_cascade from "../model/cascade.js";
@@ -83,6 +84,7 @@ declare const fullApi: ApiFromModules<{
   fields: typeof fields;
   http: typeof http;
   logs: typeof logs;
+  mcp: typeof mcp;
   "model/access": typeof model_access;
   "model/activities": typeof model_activities;
   "model/cascade": typeof model_cascade;
