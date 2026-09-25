@@ -1,0 +1,47 @@
+{
+  "gemini_thread": {
+    "agentThreadId": "m57085jk44c6qh99mn40ejk4998e63ea",
+    "id": "zs7ekrx19cawfbpwpcv0dq0mq58e6d8n",
+    "success": true,
+    "threadId": "m57085jk44c6qh99mn40ejk4998e63ea"
+  },
+  "gemini_submission": {
+    "activeRunId": "ks73xrb4dmxgs5ddk6mfa09b5h8e69jz",
+    "deliveryMode": "started",
+    "messageId": "ks73xrb4dmxgs5ddk6mfa09b5h8e69jz",
+    "success": true,
+    "threadId": "m57085jk44c6qh99mn40ejk4998e63ea",
+    "traceId": "29597cef1cec324ea5b03acce756f8c9",
+    "traceparent": "00-29597cef1cec324ea5b03acce756f8c9-932c93dca6fd702c-01"
+  },
+  "astra_thread": {
+    "agentThreadId": "m578eaqsq8jrernqb188bmdwcs8e6tra",
+    "id": "zs797an8egmxxp29kcxmgqt3w58e78fd",
+    "success": true,
+    "threadId": "m578eaqsq8jrernqb188bmdwcs8e6tra"
+  },
+  "astra_submission": {
+    "activeRunId": "ks73ky3khq2zn9md925gmxgtd98e6680",
+    "deliveryMode": "started",
+    "messageId": "ks73ky3khq2zn9md925gmxgtd98e6680",
+    "success": true,
+    "threadId": "m578eaqsq8jrernqb188bmdwcs8e6tra",
+    "traceId": "884ddbcd073c643581978b87a75995ef",
+    "traceparent": "00-884ddbcd073c643581978b87a75995ef-ef7fba81dc71bd38-01"
+  },
+  "fable_thread": {
+    "agentThreadId": "m57es3xrcxmpah3x81fhj4z93h8e66t5",
+    "id": "zs76z92q6g99pw589736cnj2xs8e7qey",
+    "success": true,
+    "threadId": "m57es3xrcxmpah3x81fhj4z93h8e66t5"
+  },
+  "fable_submission": {
+    "activeRunId": "ks7aqdb4p0t1mv0k3mxjzb6y0n8e6xkk",
+    "deliveryMode": "started",
+    "messageId": "ks7aqdb4p0t1mv0k3mxjzb6y0n8e6xkk",
+    "success": true,
+    "threadId": "m57es3xrcxmpah3x81fhj4z93h8e66t5",
+    "traceId": "43373d393ae239d44b7df909dd464d92",
+    "traceparent": "00-43373d393ae239d44b7df909dd464d92-12277c0b3b39ddd0-01"
+  }
+}

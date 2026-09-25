@@ -67,6 +67,8 @@ export default defineSchema({
         v.literal("openai"),
         v.literal("anthropic"),
         v.literal("openrouter"),
+        v.literal("deepseek"),
+        v.literal("grok"),
       ),
     ),
     // Sidebar personalization: item ids in display order, and ids hidden by
@@ -391,4 +393,231 @@ export default defineSchema({
     .index("by_contact", ["contactId"])
     .index("by_deal", ["dealId"])
     .index("by_threadId", ["threadId"]),
+
+  // ---------------------------------------------------------------------
+  // Paul Cushman's Climate Week NYC 2026 dataset. Everything below is a
+  // verbatim port of paul-data/paul-large-datafiles/ — regenerated into
+  // convex/paulData/ by scripts/build-paul-seed.mjs. Field names are the
+  // source column names camelCased; no information is dropped.
+
+  // Climate Week events: the 838-row official inventory merged with the
+  // 230-row screened ecosystem list (153 official rows carry screening
+  // annotations; 77 records are Luma-only). `lists` records every source
+  // file the record appears in.
+  paulEvents: defineTable({
+    key: v.string(), // "off:<slug>" or "eco:<record_id>"
+    slug: v.optional(v.string()),
+    origin: v.string(),
+    title: v.string(),
+    // official838 columns
+    weekTag: v.optional(v.string()),
+    date: v.optional(v.string()),
+    dateTime: v.optional(v.string()),
+    dateTimeFull: v.optional(v.string()),
+    format: v.optional(v.string()),
+    type: v.optional(v.string()),
+    host: v.optional(v.string()),
+    location: v.optional(v.string()),
+    address: v.optional(v.string()),
+    themes: v.optional(v.string()),
+    registrationUrl: v.optional(v.string()),
+    url: v.optional(v.string()),
+    duration: v.optional(v.string()),
+    language: v.optional(v.string()),
+    detailStatus: v.optional(v.string()),
+    // screened-list columns
+    recordId: v.optional(v.string()),
+    dateLocal: v.optional(v.string()),
+    timeLocal: v.optional(v.string()),
+    timezone: v.optional(v.string()),
+    venue: v.optional(v.string()),
+    neighborhood: v.optional(v.string()),
+    borough: v.optional(v.string()),
+    officialUrl: v.optional(v.string()),
+    sourceCalendars: v.optional(v.string()),
+    netSignal: v.optional(v.string()),
+    icpScore: v.optional(v.number()),
+    icpFitRationale: v.optional(v.string()),
+    confirmedPeopleOrgs: v.optional(v.string()),
+    targetAudience: v.optional(v.string()),
+    priceCurrency: v.optional(v.string()),
+    accessRequirements: v.optional(v.string()),
+    observedRegistrationStatus: v.optional(v.string()),
+    observationTime: v.optional(v.string()),
+    rankScore: v.optional(v.number()),
+    rankTier: v.optional(v.string()),
+    remainingUncertainty: v.optional(v.string()),
+    officialDescSnippet: v.optional(v.string()),
+    networkingEvidence: v.optional(v.string()),
+    evidenceLevel: v.optional(v.string()),
+    descHasCommercial: v.optional(v.string()),
+    priorityRank: v.optional(v.number()),
+    lists: v.array(v.string()),
+    // Derived from rank_tier for indexed filtering: inventory rows were
+    // never screened; the rest carry their screened bucket.
+    screening: v.union(
+      v.literal("inventory"),
+      v.literal("qualified"),
+      v.literal("pending"),
+      v.literal("excluded"),
+    ),
+  })
+    .index("by_key", ["key"])
+    .index("by_slug", ["slug"])
+    .index("by_origin", ["origin"])
+    .index("by_screening", ["screening"])
+    .index("by_screening_and_rank", ["screening", "rankScore"])
+    .index("by_priorityRank", ["priorityRank"])
+    .searchIndex("search_title", { searchField: "title" }),
+
+  // Primary-source Luma verifications (32 pages re-checked by hand).
+  paulVerifications: defineTable({
+    recordId: v.string(),
+    sourceUrl: v.optional(v.string()),
+    observedAt: v.optional(v.string()),
+    eventId: v.optional(v.string()),
+    title: v.optional(v.string()),
+    startAt: v.optional(v.string()),
+    endAt: v.optional(v.string()),
+    timezone: v.optional(v.string()),
+    registrationAvailability: v.optional(v.string()),
+    approvalRequired: v.optional(v.boolean()),
+    description: v.optional(v.string()),
+    sourceJsonSha256: v.optional(v.string()),
+  }).index("by_recordId", ["recordId"]),
+
+  // The 480-name candidate universe with status vs official hosts/profiles.
+  paulCandidates: defineTable({
+    name: v.string(),
+    status: v.string(),
+    officialHostEvents: v.optional(v.number()),
+    notes: v.optional(v.string()),
+  })
+    .index("by_status", ["status"])
+    .index("by_name", ["name"]),
+
+  // The 26 corrected scored identities (company-research.json merged with
+  // prospect-ranking.csv and the prospects-only subset flag).
+  paulProspects: defineTable({
+    canonicalName: v.string(),
+    legalName: v.optional(v.string()),
+    entityType: v.optional(v.string()),
+    category: v.optional(v.string()),
+    website: v.optional(v.string()),
+    hq: v.optional(v.string()),
+    founded: v.optional(v.string()),
+    stage: v.optional(v.string()),
+    fundingSummary: v.optional(v.string()),
+    headcount: v.optional(v.string()),
+    headcountSource: v.optional(v.string()),
+    headcountStatus: v.optional(v.string()),
+    products: v.optional(v.string()),
+    icpFit: v.optional(v.string()),
+    icpNotes: v.optional(v.string()),
+    climateRelevance: v.optional(v.number()),
+    icpScore: v.optional(v.number()),
+    engagement: v.optional(v.number()),
+    access: v.optional(v.number()),
+    unknowns: v.optional(v.string()),
+    disposition: v.optional(v.string()),
+    profileStatus: v.optional(v.string()),
+    lane: v.optional(v.string()),
+    nycPresence: v.optional(v.string()),
+    scoreTotal: v.optional(v.number()),
+    oldScore: v.optional(v.number()),
+    scoreDelta: v.optional(v.number()),
+    rank: v.optional(v.number()),
+    warmPath: v.optional(v.string()),
+    prospectOnly: v.optional(v.boolean()),
+    // Link to the native companies row seeded for this prospect.
+    companyId: v.optional(v.id("companies")),
+  })
+    .index("by_name", ["canonicalName"])
+    .index("by_rank", ["rank"])
+    .index("by_disposition", ["disposition"])
+    .index("by_company", ["companyId"]),
+
+  // The 24 recovered lane A/B/C research profiles (pre-correction, kept for
+  // provenance alongside the corrected scored identities).
+  paulLaneProfiles: defineTable({
+    lane: v.string(),
+    name: v.string(),
+    category: v.optional(v.string()),
+    website: v.optional(v.string()),
+    hq: v.optional(v.string()),
+    founded: v.optional(v.string()),
+    stage: v.optional(v.string()),
+    fundingSummary: v.optional(v.string()),
+    headcount: v.optional(v.string()),
+    headcountSource: v.optional(v.string()),
+    products: v.optional(v.string()),
+    icpFit: v.optional(v.string()),
+    icpNotes: v.optional(v.string()),
+    climateWeekInvolvement: v.optional(v.string()),
+    climateWeekRole: v.optional(v.string()),
+    sources: v.optional(
+      v.array(
+        v.object({ title: v.optional(v.string()), url: v.string() }),
+      ),
+    ),
+  })
+    .index("by_lane", ["lane"])
+    .index("by_name", ["name"]),
+
+  // Entity <-> event evidence (host/sponsor/speaker claims with confidence).
+  paulRelationships: defineTable({
+    entity: v.optional(v.string()),
+    relationType: v.optional(v.string()),
+    confidence: v.optional(v.string()),
+    eventTitle: v.optional(v.string()),
+    eventDate: v.optional(v.string()),
+    eventType: v.optional(v.string()),
+    eventFormat: v.optional(v.string()),
+    matchedHostFragment: v.optional(v.string()),
+    hostField: v.optional(v.string()),
+    sourceUrl: v.optional(v.string()),
+    evidence: v.optional(v.string()),
+  })
+    .index("by_entity", ["entity"])
+    .index("by_eventTitle", ["eventTitle"]),
+
+  // The 12 entity-resolution corrections (Crux merge, Scale AI, etc.).
+  paulAuditFindings: defineTable({
+    issueId: v.optional(v.string()),
+    severity: v.optional(v.string()),
+    subject: v.optional(v.string()),
+    confusedWith: v.optional(v.string()),
+    finding: v.optional(v.string()),
+    evidence: v.optional(v.string()),
+    correction: v.optional(v.string()),
+    scoreImpact: v.optional(v.string()),
+  }),
+
+  // Artifact-by-artifact intent mapping (keep/reshape/drop vs the two jobs).
+  paulIntentMappings: defineTable({
+    artifactCategory: v.optional(v.string()),
+    artifactPath: v.optional(v.string()),
+    rowClassOrScope: v.optional(v.string()),
+    count: v.optional(v.string()),
+    disposition: v.optional(v.string()),
+    targetUseCase: v.optional(v.string()),
+    rationale: v.optional(v.string()),
+    astraAction: v.optional(v.string()),
+  }).index("by_disposition", ["disposition"]),
+
+  // Every context/companion document verbatim (README, context, briefs,
+  // receipts, manifest, the retired historical ranking).
+  paulDocuments: defineTable({
+    path: v.string(),
+    title: v.string(),
+    kind: v.union(
+      v.literal("markdown"),
+      v.literal("json"),
+      v.literal("text"),
+    ),
+    retired: v.boolean(),
+    bytes: v.number(),
+    sha256: v.string(),
+    content: v.string(),
+  }).index("by_path", ["path"]),
 });

@@ -1,78 +1,90 @@
+@import url("https://assets.ramp.com/fonts/fonts.css");
 @import "tailwindcss";
-@import "@fontsource-variable/mona-sans";
 
-/* Two themes, one token set.
+/* Two themes, one token set — the Ramp "Ryu" palette.
 
-   Dark follows the Composio pattern: near-black canvas, achromatic surface
-   steps, hairline borders, a white CTA fill, and #51a2ff reserved for links.
-   Light follows the Minimax pattern: white canvas, soft gray secondary
-   surfaces, a near-black #181e25 CTA fill, and #1456f0 links.
+   Dark: canvas #1a1919 with achromatic warm-gray surface steps, hairline
+   borders, a near-white CTA fill, and Ryu info-blue #a1b3df reserved for
+   links. Light: white canvas, #fcfbfa surfaces, near-black #1a1919 CTA fill,
+   and #425e93 links.
 
    The palette classes the app uses (white, neutral 200 to 600, and the badge
-   tones) are declared here with their standard dark values and remapped under
+   tones) are declared here with their dark values and remapped under
    html.light, so every existing utility class flips with the theme. */
 @theme {
-  --color-ink: #0f0f0f;
-  --color-panel: #1a1a1a;
-  --color-raised: #242424;
-  --color-edge: rgb(255 255 255 / 0.12);
-  --color-edge-strong: rgb(255 255 255 / 0.25);
-  --color-primary: #ffffff;
-  --color-primary-hover: #d9d9d9;
-  --color-primary-ink: #0f0f0f;
-  --color-accent: #51a2ff;
-  --color-glow: #142a45;
+  --color-ink: #1a1919;
+  --color-panel: #201f1e;
+  --color-raised: #2a2827;
+  --color-edge: #32302f;
+  --color-edge-strong: #474543;
+  --color-primary: #f5f3f1;
+  --color-primary-hover: #d2cecb;
+  --color-primary-ink: #1a1919;
+  --color-accent: #a1b3df;
+  --color-glow: #323743;
 
-  /* Muted grays stay at or above 4.5:1 on the ink canvas (WCAG AA for
-     normal text); 600 is the floor, not a decoration tone. */
-  --color-white: #ffffff;
-  --color-neutral-200: #e8e8e8;
-  --color-neutral-300: #d6d6d6;
-  --color-neutral-400: #b3b3b3;
-  --color-neutral-500: #9a9a9a;
-  --color-neutral-600: #808080;
+  /* Warm-neutral ramp anchored to Ryu ink/ink-muted (#d2cecb / #a39d99).
+     500 stays at or above 4.5:1 on the ink canvas (WCAG AA normal text). */
+  --color-white: #f5f3f1;
+  --color-neutral-200: #d2cecb;
+  --color-neutral-300: #c6c1bd;
+  --color-neutral-400: #a39d99;
+  --color-neutral-500: #a39d99;
+  --color-neutral-600: #6e6a68;
   --color-red-400: #f87171;
   --color-red-500: #ef4444;
   --color-red-900: #7f1d1d;
-  --color-yellow-400: #fbbf24;
-  --color-yellow-800: #854d0e;
+  --color-yellow-400: #decd81;
+  --color-yellow-800: #5c5332;
   --color-amber-200: #fde68a;
   --color-amber-500: #f59e0b;
   --color-emerald-400: #4ade80;
   --color-emerald-800: #065f46;
 
+  /* Lausanne ships from Ramp's fonts CDN; Ryu falls back to the system
+     grotesques. Radius: Ryu nav radius is 4px and box radius is 0 — corners
+     run square across the app. */
   --font-sans:
-    "Mona Sans Variable", -apple-system, system-ui, "Segoe UI", "Noto Sans",
-    Helvetica, Arial, sans-serif;
+    "Lausanne", "Inter", "Roboto", -apple-system, system-ui, "Segoe UI",
+    "Noto Sans", Helvetica, Arial, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-full: 0;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
 }
 
-/* Minimax light theme. Same tokens, light values. text-white intentionally
+/* Ryu light theme. Same tokens, light values. text-white intentionally
    resolves to ink here so headings flip without touching every component. */
 html.light {
   --color-ink: #ffffff;
-  --color-panel: #fafafa;
-  --color-raised: #eef0f2;
-  --color-edge: #e5e7eb;
-  --color-edge-strong: #c9cdd4;
-  --color-primary: #181e25;
-  --color-primary-hover: #2c3542;
+  --color-panel: #fcfbfa;
+  --color-raised: #f5f3f1;
+  --color-edge: #e9e5e2;
+  --color-edge-strong: #d2cecb;
+  --color-primary: #1a1919;
+  --color-primary-hover: #32302f;
   --color-primary-ink: #ffffff;
-  --color-accent: #1456f0;
-  --color-glow: #dbeafe;
+  --color-accent: #425e93;
+  --color-glow: #eef2fa;
 
-  /* Same AA floor on the white canvas: 600 lands near 4.6:1, 500 near
-     5.3:1, so small helper text stays readable in light mode. */
-  --color-white: #18181b;
-  --color-neutral-200: #3d4854;
-  --color-neutral-300: #46515e;
-  --color-neutral-400: #525d6b;
-  --color-neutral-500: #626d7a;
-  --color-neutral-600: #6d7683;
+  --color-white: #1a1919;
+  --color-neutral-200: #3d3a38;
+  --color-neutral-300: #474543;
+  --color-neutral-400: #5a5653;
+  --color-neutral-500: #6e6a68;
+  --color-neutral-600: #7a7674;
   --color-red-400: #dc2626;
   --color-red-500: #b91c1c;
   --color-red-900: #fecaca;
-  --color-yellow-400: #b45309;
-  --color-yellow-800: #fcd34d;
+  --color-yellow-400: #8a7a2f;
+  --color-yellow-800: #e4d9a6;
   --color-amber-200: #92400e;
   --color-amber-500: #d97706;
   --color-emerald-400: #047857;
@@ -83,7 +95,33 @@ html {
   background: var(--color-ink);
   color: var(--color-neutral-200);
   font-family: var(--font-sans);
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Ryu type scale: light body (300) against regular headings (400) with the
+   tightened tracking Lausanne wants. */
+h1,
+h2,
+h3,
+h4,
+.text-xl,
+.text-lg {
+  font-weight: 400;
+}
+h1 {
+  letter-spacing: -0.02em;
+}
+h4,
+.font-semibold,
+.font-medium {
+  letter-spacing: -0.01em;
+}
+button,
+input,
+select,
+textarea {
+  font-weight: 300;
 }
 
 /* White marks (the Convex logo and the framework icons) invert to ink in

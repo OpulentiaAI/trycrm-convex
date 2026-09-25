@@ -23,6 +23,10 @@ What changed is everything underneath. No Vercel, no Postgres, no Prisma, no Red
 
 Try it at [convex.link/crmonconvex](https://convex.link/crmonconvex) (served from [good-dog-8.convex.site](https://good-dog-8.convex.site/)). The demo runs in demo mode: everything works in real time, content resets every 10 minutes with a Convex cron job, and auth and email are intentionally not configured. The site has a full setup and usage guide at `/docs`, written for people who have never deployed a backend.
 
+## The Paul Cushman dataset
+
+This fork ships purpose-built for Paul Cushman's Climate Week NYC 2026 planning. The raw research files live verbatim in `paul-data/paul-large-datafiles/` (31 files, checksummed), and `node scripts/build-paul-seed.mjs` regenerates typed data modules in `convex/paulData/` that the seed loads into nine `paul*` tables: 915 merged events (the official 838-row inventory joined with the 230-row screened list), 32 Luma verifications, the 480-name candidate universe, 26 corrected scored identities, 24 lane profiles, 79 entity↔event relationships, 12 audit findings, 24 intent mappings, and the companion documents. Four app pages — Events, Universe, Research, Dossier — make it browsable, and the 26 entities also land as real CRM companies so the rest of the product (enrichment, agents, record chat) works on them. The seed deliberately creates **no deals**: the research states these lists are source data, not a CRO pipeline.
+
 ## The stack
 
 | Layer            | Technology                                                                                                                                                                          |
@@ -36,7 +40,7 @@ Try it at [convex.link/crmonconvex](https://convex.link/crmonconvex) (served fro
 | Brand enrichment | [`@context-dot-dev/convex`](https://www.convex.dev/components/context-dot-dev/convex), the same Context.dev data the upstream uses; the same key also backs web search and scraping |
 | Web scraping     | [`@firecrawl/firecrawl-convex`](https://www.convex.dev/components/firecrawl/firecrawl-convex) or Context.dev, the chat agent reads pages as markdown with either key                |
 | Web search       | [`@exalabs/convex-exa`](https://www.convex.dev/components/exalabs/convex-exa) or Context.dev, search as an agent tool with either key                                               |
-| AI providers     | OpenAI, Claude (Anthropic), or OpenRouter via the AI SDK, switchable in Settings, no key ships by default                                                                           |
+| AI providers     | OpenAI, Claude (Anthropic), OpenRouter, DeepSeek, or Grok (xAI) via the AI SDK, switchable in Settings, no key ships by default                                                     |
 | Email            | [`@convex-dev/resend`](https://www.convex.dev/components/resend) or [`@agentmail/convex`](https://www.convex.dev/components/agentmail/convex), switchable in Settings               |
 | Caching          | [`@convex-dev/action-cache`](https://www.convex.dev/components/action-cache), 7 day TTL on brand lookups, replaces Redis                                                            |
 | Rate limiting    | [`@convex-dev/rate-limiter`](https://www.convex.dev/components/rate-limiter) on the enrichment budget                                                                               |
@@ -92,6 +96,8 @@ Every outside key is optional in practice. The app degrades honestly: features t
 | `OPENAI_API_KEY`                           | Chat and agent reasoning when OpenAI is the selected provider                                                                                | Chat replies name the missing key                                                      |
 | `ANTHROPIC_API_KEY`                        | Chat and agent reasoning when Claude is the selected provider                                                                                | Same                                                                                   |
 | `OPENROUTER_API_KEY`                       | Chat and agent reasoning when OpenRouter is the selected provider                                                                            | Same                                                                                   |
+| `DEEPSEEK_API_KEY`                         | Chat and agent reasoning when DeepSeek is the selected provider                                                                              | Same                                                                                   |
+| `XAI_API_KEY`                              | Chat and agent reasoning when Grok (xAI) is the selected provider                                                                            | Same                                                                                   |
 | `RESEND_API_KEY`                           | Outbound email through the Resend component                                                                                                  | Email sends are logged as no-ops                                                       |
 | `AGENTMAIL_API_KEY` + `AGENTMAIL_INBOX_ID` | Outbound email plus a persistent agent inbox through AgentMail                                                                               | Same, logged as no-ops                                                                 |
 | `SLACK_WEBHOOK_URL`                        | Slack notifications in simple mode: posts to one fixed channel through an incoming webhook                                                   | Slack sends are logged as no-ops                                                       |
@@ -100,6 +106,7 @@ Every outside key is optional in practice. The app degrades honestly: features t
 | `APP_URL`                                  | Overrides the base URL in Slack deep links, for custom domains                                                                               | Links use the `.convex.site` URL                                                       |
 | `FIRECRAWL_WEBHOOK_SECRET`                 | Verifies Firecrawl crawl webhooks                                                                                                            | Optional; only needed for webhook-mode crawls                                          |
 | `AGENTMAIL_WEBHOOK_SECRET`                 | Verifies inbound AgentMail webhooks                                                                                                          | Optional; unverified deliveries are rejected                                           |
+| `MCP_AUTH_TOKEN`                           | Bearer auth for the embedded MCP endpoint (`POST /mcp`)                                                                                       | Endpoint is open — intended for local builds                                           |
 
 Set any of them with:
 
@@ -107,9 +114,20 @@ Set any of them with:
 npx convex env set OPENAI_API_KEY sk-...
 ```
 
-None of the three AI keys ship by default. A fresh fork has no model keys at all; the Ask page and record chat answer with the exact key they need instead of erroring. Pick which provider the chat uses in Settings.
+None of the five AI keys ship by default. A fresh fork has no model keys at all; the Ask page and record chat answer with the exact key they need instead of erroring. Pick which provider the chat uses in Settings. OpenAI is the default.
 
 Demo mode is a flag on the workspace row, set by the seed. While it is on, writes are open, sign-in is disabled, and the reset cron wipes and reseeds all tables every 10 minutes. The banner in the app counts down to the next reset. Forking this for real use? Turn it off first: see [Turning off the demo reset](#turning-off-the-demo-reset).
+
+## Embedded MCP endpoint
+
+The app ships an MCP server on the deployment itself — `POST https://YOUR-DEPLOYMENT.convex.site/mcp` (the local dev backend's `.site` URL likewise). Any MCP client pointed at that URL can discover and call the app's functions as tools:
+
+- **Pull** — companies/contacts/deals/activities reads, global search, dashboard summary, and the full `paul.*` surface (915 events, 480 candidates, 26 prospects, lane profiles, relationships, audit findings, intent map, document library, research meta).
+- **Add/update** — `companies.create|update`, `contacts.create|update`, `deals.create|update|changeStage`, `activities.create|completeTask`, `fields.setValue` — the same `writeMutation` paths the UI uses. Destructive `remove` tools are intentionally not exposed.
+- **Analyze** — `paul.eventStats`, `paul.candidateStats`, `dashboard.summary`, plus a `paul.briefing` prompt that briefs the agent on dataset semantics (qualification ≠ admission; source data, not a pipeline).
+- **Control** — `demo.info`, `demo.requestReset`, `paul.seed`, `paul.seedWorkspace` (idempotent seeds; reset is annotated destructive).
+
+Defined in `convex/mcp.ts` via `@vibeflowai/convex-mcp`, mounted in `convex/http.ts`. Open by default for whoever runs the app locally; `npx convex env set MCP_AUTH_TOKEN <token>` requires `Authorization: Bearer <token>`.
 
 ## Email: two providers
 
@@ -206,7 +224,7 @@ I forked waynesutton/trycrm-convex and I am using it as a real CRM, not a public
 - Agent task queue with leasing, workpools, and scheduled rechecks that require a reason
 - Agents that build agents: describe a process, get a versioned draft definition
 - Record chat with web research tools (Firecrawl, Exa, or Context.dev, any one key is enough) that answer honestly about missing keys
-- AI provider picker: OpenAI, Claude, or OpenRouter, none configured by default
+- AI provider picker: OpenAI, Claude, OpenRouter, DeepSeek, or Grok, none configured by default
 - Dark and light themes with a toggle in the header and the sidebar footer
 - Demo reset every 10 minutes via cron (the Activity log resets with it)
 
@@ -225,7 +243,7 @@ The app has a live comparison page at `/compare` and full setup docs at `/docs`.
 | Auth            | Better Auth                             | Convex Auth ready, off in demo                                                                    |
 | Email           | Resend SDK calls                        | Resend or AgentMail components, switchable                                                        |
 | Web research    | Not included                            | Firecrawl or Context.dev scraping and Exa or Context.dev search as agent tools; any one key works |
-| AI providers    | OpenAI                                  | OpenAI, Claude, or OpenRouter, switchable in Settings                                             |
+| AI providers    | OpenAI                                  | OpenAI, Claude, OpenRouter, DeepSeek, or Grok, switchable in Settings                             |
 | Workspace chat  | Per-record chat only                    | Ask page with streamed replies, slash commands, and thread history                                |
 | Notes and tasks | Notes on records                        | Notes and tasks with due dates, reminders, and completion                                         |
 | Search          | Per-table inputs                        | Command-K palette on full text search indexes                                                     |

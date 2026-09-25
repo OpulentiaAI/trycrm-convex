@@ -1,6 +1,6 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
 import { agentmailConfigured, resendConfigured } from "./email";
+import { authedQuery } from "./model/functions";
 import {
   slackBotConfigured,
   slackSigningConfigured,
@@ -14,13 +14,15 @@ import { exaConfigured, firecrawlConfigured } from "./web";
 const realKey = (value: string | undefined): boolean =>
   !!value && value !== "unset";
 
-export const status = query({
+export const status = authedQuery({
   args: {},
   returns: v.object({
     contextDev: v.boolean(),
     openai: v.boolean(),
     anthropic: v.boolean(),
     openrouter: v.boolean(),
+    deepseek: v.boolean(),
+    grok: v.boolean(),
     resend: v.boolean(),
     agentmail: v.boolean(),
     firecrawl: v.boolean(),
@@ -35,6 +37,8 @@ export const status = query({
       openai: realKey(process.env.OPENAI_API_KEY),
       anthropic: realKey(process.env.ANTHROPIC_API_KEY),
       openrouter: realKey(process.env.OPENROUTER_API_KEY),
+      deepseek: realKey(process.env.DEEPSEEK_API_KEY),
+      grok: realKey(process.env.XAI_API_KEY),
       resend: resendConfigured(),
       agentmail: agentmailConfigured(),
       firecrawl: firecrawlConfigured(),
